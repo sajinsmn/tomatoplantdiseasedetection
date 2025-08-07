@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icon2.png') }}">
+    <title>Prediction Result</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Aligns container lower on the screen */
+            height: 120vh;
+            margin: 0;
+            background-image: url('{{ url_for("static", filename="leaf3.jpg") }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 70%; /* Increased container width */
+            margin-top: 50px; /* Moves the container lower */
+
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .result-image {
+            width: 100%; /* Keeps image inside the container */
+            max-width: 600px; /* Ensures image doesn't stretch too much */
+            height: auto;
+            margin: 0px 0px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .info-box {
+            background-color: white;
+            color: black;
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            display: inline-block; /* Makes it fit content */
+            max-width: 700px; /* Keeps info boxes the same size */
+            margin-bottom: 15px;
+        }
+
+        .info-box h2 {
+            color: #4CAF50;
+            font-size: 25px;
+            margin: 0;
+        }
+        .info-box h3 {
+            color: #4CAF50;
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .info-box p {
+            font-size: 18px;
+            margin: 5px 0;
+            word-wrap: break-word;
+        }
+
+        .upload-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        .upload-btn:hover {
+            background-color: #419744;
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%; /* Adjust width for smaller screens */
+            }
+            .info-box {
+                max-width: 100%; /* Ensures info boxes fit well on mobile */
+            }
+            .result-image {
+                max-width: 100%; /* Makes sure the image scales down on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Predicted Disease Box -->
+        <div class="info-box">
+            <h2>Prediction</h2>
+            <p>{{ predicted_class }}</p>
+        </div><br>
+
+        <!-- Result Image -->
+        <img src="{{ url_for('static', filename='result.png') }}" alt="Result Image" class="result-image"><br>
+
+        <!-- Pesticide Recommendation Box -->
+        <div class="info-box">
+            <h3>Recommended Pesticide</h3>
+            <p>{{ recommendation }}</p>
+        </div><br>
+
+        <!-- Upload Button -->
+        <a href="/" class="upload-btn">Upload Another Image</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icon2.png') }}">
+    <title>TomDoc</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('{{ url_for("static", filename="leaf3.jpg") }}');
+            background-size: cover;
+            background-position: center;
+            transition: background-color 0.3s;
+            background-repeat: no-repeat;
+            color: white;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background for the container */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Soft shadow */
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); /* Enhanced shadow on hover */
+        }
+
+        h1 {
+            color: #4CAF50; /* Green color for the heading */
+            font-size: 36px;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50; /* Green background for the button */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-right: 160px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #419744; 
+        }
+
+        /* Hide the default file input */
+        #imageUpload {
+            display: none;
+        }
+
+        /* Custom "Choose file" button */
+        .custom-file-btn {
+            background-color: #007bff; /* Match the h1 color */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            border: none;
+            margin-left: 160px;
+            margin-top: 10px;
+        }
+
+        .custom-file-btn:hover {
+            background-color: #006cde;
+        }
+
+        /* Set the uploaded image size */
+        #uploadedImage {
+            width: 300px;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        #diseaseResult {
+            color: #329337;
+        }
+
+        .pogo-icon {
+            size: 10cap;
+        }
+
+        /* Extra spacing to center the buttons more */
+        .form-container {
+            width: 80%; /* Set a width of 80% */
+            max-width: 600px; /* Limit the width to 600px for larger screens */
+            margin: 0 auto; /* Center the container */
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center mt-5">
+        <h1 class="mb-4">
+            <i class="fas fa-leaf"></i> <!-- Font Awesome icon -->
+            TomDoc
+        </h1>
+        
+        <!-- Image upload button (styled) -->
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <div class="d-flex justify-content-between align-items-center form-container">
+                <!-- Left: Choose File button -->
+                <div>
+                    <label for="imageUpload" class="custom-file-btn">Choose File</label>
+                    <input type="file" name="file" id="imageUpload" accept="image/*" required />
+                </div>
+                <!-- Right: Predict button -->
+                <div>
+                    <button type="submit" class="btn btn-primary mb-2">Predict</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Uploaded image display -->
+        <div id="uploadedImageContainer" class="mt-4" style="display: none;">
+            <img id="uploadedImage" src="" alt="Uploaded Image" class="img-fluid" />
+            <br> <!-- Line break for spacing -->
+            <button id="cancelButton" class="btn btn-danger mt-2">Cancel Upload</button>
+        </div>
+        
+        <div id="diseaseResult" class="mt-3"></div> <!-- Area to display disease result -->
+    </div>
+
+    <!-- Pogo Icon -->
+
+    <script src="script.js"></script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
