@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icon2.png') }}">
     <title>TomDoc</title>
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
@@ -56,7 +54,7 @@
         }
 
         button[type="submit"]:hover {
-            background-color: #419744; 
+            background-color: #419744;
         }
 
         /* Hide the default file input */
@@ -83,9 +81,10 @@
 
         /* Set the uploaded image size */
         #uploadedImage {
-            width: 300px;
+            max-width: 300px; /* Use max-width to maintain aspect ratio */
             height: auto;
             margin-top: 10px;
+            border-radius: 10px; /* Add rounded corners to the image */
         }
 
         #diseaseResult {
@@ -107,39 +106,56 @@
 <body>
     <div class="container text-center mt-5">
         <h1 class="mb-4">
-            <i class="fas fa-leaf"></i> <!-- Font Awesome icon -->
-            TomDoc
+            <i class="fas fa-leaf"></i> TomDoc
         </h1>
-        
-        <!-- Image upload button (styled) -->
+
         <form action="/predict" method="post" enctype="multipart/form-data">
             <div class="d-flex justify-content-between align-items-center form-container">
-                <!-- Left: Choose File button -->
                 <div>
                     <label for="imageUpload" class="custom-file-btn">Choose File</label>
                     <input type="file" name="file" id="imageUpload" accept="image/*" required />
                 </div>
-                <!-- Right: Predict button -->
                 <div>
                     <button type="submit" class="btn btn-primary mb-2">Predict</button>
                 </div>
             </div>
         </form>
 
-        <!-- Uploaded image display -->
         <div id="uploadedImageContainer" class="mt-4" style="display: none;">
             <img id="uploadedImage" src="" alt="Uploaded Image" class="img-fluid" />
-            <br> <!-- Line break for spacing -->
-            <button id="cancelButton" class="btn btn-danger mt-2">Cancel Upload</button>
+            <br> <button id="cancelButton" class="btn btn-danger mt-2">Cancel Upload</button>
         </div>
-        
-        <div id="diseaseResult" class="mt-3"></div> <!-- Area to display disease result -->
-    </div>
 
-    <!-- Pogo Icon -->
+        <div id="diseaseResult" class="mt-3"></div> </div>
 
-    <script src="script.js"></script>
-    <!-- Bootstrap JS and dependencies -->
+    <script>
+        const imageUpload = document.getElementById('imageUpload');
+        const uploadedImageContainer = document.getElementById('uploadedImageContainer');
+        const uploadedImage = document.getElementById('uploadedImage');
+        const cancelButton = document.getElementById('cancelButton');
+
+        imageUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedImage.src = e.target.result;
+                    uploadedImageContainer.style.display = 'block'; // Show the container
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        cancelButton.addEventListener('click', function() {
+            // Reset the file input value
+            imageUpload.value = '';
+
+            // Hide the image preview container
+            uploadedImage.src = '';
+            uploadedImageContainer.style.display = 'none';
+        });
+    </script>
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
