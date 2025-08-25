@@ -17,7 +17,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 MODEL_PATH = "model.tflite"
-MODEL_URL = "https://drive.google.com/uc?export=download&id=1XVs-WN3lxLDoQV7ILx6T2quDlZ_SpgDk"  # replace with your new link
+MODEL_URL = "https://drive.google.com/uc?export=download&id=1AOOn0bEQrZqSKIv_Xn_wB-XoZkdTBzIk" 
 
 # Download the model if not exists
 if not os.path.exists(MODEL_PATH):
